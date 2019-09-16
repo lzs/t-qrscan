@@ -89,7 +89,7 @@
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: false });
     scanner.addListener('scan', function (content) {
         $.getJSON('qrcallback.pl', { s: content }, function(data) {
-            document.getElementById("status").innerHTML = data.html;
+            $('#status').html(data.html);
         });
     })
 
@@ -107,12 +107,12 @@
         $(document).on('click', '#cb-confirm', function() {
             content = document.getElementById('cb-content').value;
             $.getJSON('qrcallback.pl', { s: content, c: "1" }, function(data) {
-                document.getElementById("status").innerHTML = data.html;
+                $('#status').html(data.html);
             });
         });
 
         $(document).on('click', '#cb-clear', function() {
-            document.getElementById('status').innerHTML = '';
+            $('#status').empty();
         });
     });
 

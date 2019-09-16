@@ -20,14 +20,15 @@ use HTML::Entities;
     if (!$c) {
         $html = <<EOM;
 <p>Read from QR-code: $s_</p>
-<button class="ui-btn ui-corner-all" id="cb-confirm">CONFIRM</button>
-<button class="ui-btn ui-corner-all" id="cb-clear">Clear</button>
+<button data-role="button" class="ui-button" id="cb-confirm">CONFIRM</button>
+<button data-role="button" class="ui-button" id="cb-clear">Clear</button>
 <input type="hidden" name="cb-content" id="cb-content" value="$s_" />
 EOM
     }
     else {
         $html = <<EOM;
 <p>CONFIRMED: $s_</p>
+<button data-role="button" class="ui-button" id="cb-clear">Clear</button>
 EOM
         status => 0
     }
