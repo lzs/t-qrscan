@@ -24,19 +24,27 @@
     </div>
   </div>
 
-  <div data-role="main" class="ui-content ui-grid-solo my-breakpoint">
+  <div data-role="main" class="ui-content ui-grid-a my-breakpoint">
     <div class="ui-block-a">
       <div>
         <video id="preview" style="height: 15em;"></video>
       </div>
     </div>
+    
+    <div class="ui-block-b">
+    <h3>Manual Entry</h3>
+      <form id="manual-entry">
+      <label for="manual-id">Enter NUSNET ID:</label>
+      <input type="text" name="manual-id" id="manual-id" value="">
+      <input type="submit" />
+      </form>
+    </div>
+  </div>
 
+  <div data-role="main" class="ui-content ui-grid-solo my-breakpoint">
     <div class="ui-block-a">
-      <div>Read Status</div>
       <div id="status">
       </div>
-    </div>
-
     </div>
   </div>
 
@@ -83,6 +91,7 @@
             console.error('No cameras found.');
         }
     }).catch(function (e) {
+        document.getElementById("camera-listitems").innerHTML = "No cameras found.";
         console.error(e);
     });
 
@@ -100,7 +109,7 @@
           alert('Camera not found.');
         }
       }).catch(function (e) {
-        console.error(e);
+        document.getElementById("camera-listitems").innerHTML = "No cameras found.";
       });
 
     $(document).ready(function(){
@@ -113,6 +122,15 @@
 
         $(document).on('click', '#cb-clear', function() {
             $('#status').empty();
+            $('#manual-id').val('');
+        });
+
+        $("#manual-entry").submit(function(e) {
+            e.preventDefault();
+            content = document.getElementById('manual-id').value;
+            $.getJSON('qrcallback.pl', { s: content }, function(data) {
+                $('#status').html(data.html);
+            });
         });
     });
 
